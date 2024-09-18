@@ -4,6 +4,8 @@ import './usernavbar.css';
 import User from '../UserJobs';
 import { Link } from 'react-router-dom';
 
+
+
 // Function to clear specific cookies
 const clearCookie = (name) => {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
@@ -61,7 +63,7 @@ const UserNavbar = () => {
                 <Link to="interview" className="navbar-item" onClick={e => handleSetNav("interview")} id="interview">Interview Prep</Link>
                 <Link to="/user/courses" className="navbar-item" onClick={e => handleSetNav("message")} id="message">Courses</Link>
                 <Link to="#" className="navbar-item" onClick={e => handleSetNav("community")} id="community">Community</Link>
-                <Link to="#" className="navbar-item" onClick={e => handleSetNav("buildResume")} id="buildResume">Build Resume</Link>
+                <Link to="/user/resumebuilder" className="navbar-item" onClick={e => handleSetNav("buildResume")} id="buildResume">Build Resume</Link>
             </div>
             <div className="navbar-right">
                 <div 
@@ -89,6 +91,14 @@ const UserNavbar = () => {
                                 alt="My Jobs" 
                             />
                             <a href="#">My Jobs</a>
+                        </div>
+                        <div className="Profdrop">
+                            <img 
+                                src="Images/cube-svgrepo-com.svg" 
+                                className="profa" 
+                                alt="My Jobs" 
+                            />
+                            <a href="/mentorship">Mentorship</a>
                         </div>
                         <div className="Profdrop">
                             <img 
