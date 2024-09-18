@@ -1,5 +1,3 @@
-
-
 import data from './Dictionary.json';
 
 export const fetchCourseData = () => {

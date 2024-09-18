@@ -1,9 +1,7 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
+import LandingPage from './pages/LandingPage';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter,Route,Routes} from 'react-router-dom';
 // import OrganizationSignup from './pages/OrganizationSignup';
@@ -16,10 +14,16 @@ import OrganizationRouter from './pages/OrganizationRouter';
 import User from './pages/UserJobs';
 import {store} from './store/store';
 import { Provider } from 'react-redux';
+import Mcqtest from './pages/McqTest';
+import MentorshipApp from './pages/Mentorship';
+import CoursePage from './pages/CoursePage';
+import Posts from './pages/Community';
+
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-
 root.render(
+
   <React.StrictMode>
     <Provider store={store}>
     <BrowserRouter>
@@ -32,6 +36,11 @@ root.render(
         <Route path="/organization/signup" element={<OrganizationSignup/>}/>
         <Route path="/user/*" element={<User/>}/>
         <Route path="/organization/*" element={<OrganizationRouter/>} />
+        <Route path="/mcqtest/:id" element={<Mcqtest/>}/>
+        <Route path="/mentorship" element={<MentorshipApp/>}/>
+        <Route path="/user/courses" element={<CoursePage/>} />
+        <Route path="/posts" element={<Posts/>}/>
+
         
       </Routes>
     </BrowserRouter>
@@ -39,4 +48,7 @@ root.render(
   </React.StrictMode>
 );
 
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
