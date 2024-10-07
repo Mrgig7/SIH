@@ -37,11 +37,12 @@ async function userSignInController(req, res) {
 
             const tokenOptions = {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'strict' // Optional: adds an additional layer of security
+                secure: true,
+                sameSite: 'None' // Optional: adds an additional layer of security
             };
 
             res.cookie('token', token, tokenOptions).status(200).json({
+                
                 data: token,
                 message: 'User authenticated successfully',
                 error: false,

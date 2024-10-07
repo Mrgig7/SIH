@@ -21,8 +21,9 @@ const OrganizationProfile = () => {
 
   // Fetch organization details
   const fetchOrganizationDetails = async () => {
-    const response = await fetch('http://localhost:8000/organization/organizationdetails', {
-      method: 'POST',
+    // console.log("details : ",process.env.REACT_APP_organization_details)
+    const response = await fetch(process.env.REACT_APP_organization_details, {
+      method: process.env.REACT_APP_organization_details_method,
       credentials: 'include',
     });
     const data = await response.json();

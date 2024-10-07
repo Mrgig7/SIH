@@ -13,7 +13,8 @@ const app = express();
 
 
 app.use(cors({
-    origin : process.env.FRONTEND_URL,
+    origin : "https://frontend-sih-swart.vercel.app",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials : true
 }
 )) ;
@@ -28,10 +29,13 @@ app.use("/user",user);
 app.use("/public",public);
 app.use("/organization",organization);
 // app.use("/hr",hr);
+app.options('*', cors()); // This will respond to preflight requests
+
 
 
 connectDB().then(()=>{
     app.listen(  process.env.PORT  || 8000,()=>{
+        console.log(process.env.FRONTEND_URL);
         console.log(process.env.HOST);
         console.log("connected to DB");
         console.log(`server running in http://localhost:${8000}`);

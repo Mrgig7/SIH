@@ -21,7 +21,7 @@ const Organization = () =>{
   const Navigate = useNavigate();
     const dispatch = useDispatch();
   const fetchUserDetails = async()=>{
-    const dataResponse = await fetch("http://localhost:8000/organization/organizationdetails",
+    const dataResponse = await fetch(process.env.REACT_APP_organization_details,
       {
         method : "POST",
         credentials : "include",
@@ -35,11 +35,11 @@ const Organization = () =>{
       dispatch(setUserDetails(dataApi.data))
     }
     if(!dataApi.success){
-      console.log("error : ",dataApi.message);
+      // console.log("error : ",dataApi.message);
       Navigate('/');
       return {};
     }
-    console.log("data of user : ",dataApi);
+    // console.log("data of user : ",dataApi);
     return dataApi;
   }
   

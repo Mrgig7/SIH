@@ -42,8 +42,8 @@ const JobSeekerSignup = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/signup", {
-        method: 'POST',
+      const response = await fetch(process.env.REACT_APP_usersignup_api, {
+        method: process.env.REACT_APP_usersignup_method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -62,15 +62,15 @@ const JobSeekerSignup = () => {
 
       if (data.success) {
         alert('Signup successful');
-        console.log(data);
+        // console.log(data);
 
         navigate('/jobseeker/login');
       } else {
         alert('Signup failed : '+data.message);
         if(data.message === 'User Already Exists'){
-          console.log("went to login page");
+          // console.log("went to login page");
           navigate('/jobseeker/login');        }
-        console.log(data);
+        // console.log(data);
       }
     } catch (error) {
       console.error('Error:', error);

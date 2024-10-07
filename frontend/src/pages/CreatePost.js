@@ -19,8 +19,8 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // This will prevent the default form submission behavior
     try {
-      const response = await fetch("http://localhost:8000/public/addpost", {
-        method: 'POST',
+      const response = await fetch(process.env.REACT_APP_addpost_api, {
+        method: process.env.REACT_APP_addpost_method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -34,7 +34,7 @@ const CreatePost = () => {
       const result = await response.json();
       if (result.success) {
         alert("Post created successfully");
-        console.log('Post created successfully:', result.data);
+        // console.log('Post created successfully:', result.data);
         window.location.reload(); // Reload the page after successful submission
       } else {
         alert("Error occurred while creating post");

@@ -12,8 +12,8 @@ const JobSeekerLogin = () => {
     // Implement your login logic here
     console.log("Email:", email, "Password:", password);
     try {
-      const response = await fetch('http://localhost:8000/organization/login', { // Replace with your API endpoint
-        method: 'POST',
+      const response = await fetch(process.env.REACT_APP_orglogin_api, { // Replace with your API endpoint
+        method: process.env.REACT_APP_orglogin_method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -26,8 +26,8 @@ const JobSeekerLogin = () => {
       
       const data = await response.json();
       if (response.ok) {
-        console.log('Registration successful', data);
-        alert("successfully created");
+        // console.log('Registration successful', data);
+        alert("Signed up Successfully");
         navigate("/organization/profile")
 
         // Redirect or show success message
