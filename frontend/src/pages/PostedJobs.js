@@ -5,8 +5,10 @@ import SearchBar from './SearchBar';
 import Pagination from './Pagination';
 import { Link } from 'react-router-dom';
 import google from './images/google.png'
+import { useNavigate } from 'react-router-dom';
 
 function JobBoard() {
+  const navigator = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -88,14 +90,14 @@ function JobBoard() {
   }
 
   return (
-    <div className="main">
-      <aside className="sidebar">
-        <ul>
-          <li><Link to="/organization/createjob">Create Job</Link></li>
-          <li><Link className="high" to="/organization/postedjobs">Posted Jobs</Link></li>
-          <li><Link to="/organization/closedjobs">Closed Jobs</Link></li>
-        </ul>
-      </aside>
+    <div id="i166" className="main">
+      <div className="sidebar">
+          <div id="i163">
+            <div id="i168"><Link id="i164" to="/organization/createjob" >Create Job</Link></div>
+            <div id="i168"><Link id="i164"  to="/organization/postedjobs" className="high">Posted Jobs</Link></div>
+            <div id="i168"><Link id="i164" to="/organization/closedjobs">Closed Jobs</Link></div>
+          </div>
+        </div>
       <div className="job-board">
         <div className="posted-jobs-container">
           <div className="posted-jobs">
@@ -114,7 +116,7 @@ function JobBoard() {
                     <p><b>Stipend:</b> {job.stipend}</p>
                   </div>
                   <div className="job-actions">
-                    <button className="edit-btn">Edit</button>
+                    <button onClick={()=>{navigator("../applicants/"+job._id)}} className="edit-btn">View Applicants</button>
                     <button 
                       className="close-btn" 
                       onClick={() => handleCloseJob(job._id)}

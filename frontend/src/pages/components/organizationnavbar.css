@@ -58,6 +58,8 @@ body {
 .profile-dropdown {
     position: relative;
     display: inline-block;
+    z-index:100000000000;
+
 }
 
 .profile-logo {
@@ -123,6 +125,7 @@ body {
 
 /* Sudharsan Styles */
 .sudharsan {
+    z-index:1000000;
     position: fixed;
     top: 0;
     left: 0;
