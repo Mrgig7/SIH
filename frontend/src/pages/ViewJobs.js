@@ -114,7 +114,7 @@ function JobBoard() {
   }
 
   return (
-    <div>
+    <div >
       <div className="search-bar">
         <div className="filters">
           {/* Experience Level Dropdown */}
@@ -165,24 +165,30 @@ function JobBoard() {
       </div>
 
       {/* Show loading indicator if API call is in progress */}
-      {loading && <p>Loading jobs...</p>}
+      {loading &&<div className="buffer">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+        </div>
+      </div>}
 
       {/* Show error message if any error occurs */}
       {error && <p className="error-message">{error}</p>}
 
       {/* Job Board */}
-      <div className="job-board">
-        <div className="posted-jobs-container">
+      <div   className="job-board">
+        <div id="i256" className="posted-jobs-container">
           <div className="posted-jobs">
             {currentJobs.length > 0 ? (
               currentJobs.map((job) => (
                 <div key={job._id} className="job-card">
                   <div className="title">
-                    <img src={job.img || getRandomImg()} alt="job" className="company-log" />
-                    <h3>{job.title}</h3>
+                    <img src={job.img || getRandomImg()} alt="job" id="i415" className="company-log" />
+                    <div id="i416">
+                      <h3>{job.title}</h3>
+                    </div>
                   </div>
                   <div className="bodies">
-                    <div className="texts">
+                    <div id="i412" className="texts">
                       <p>{`${job.city}, ${job.state}, ${job.country}`}</p>
                       <p><b>{job.workMode}</b> - {job.experienceLevel}</p>
                       <p><b>Stipend:</b> {job.stipend}</p>

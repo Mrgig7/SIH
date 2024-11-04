@@ -15,12 +15,14 @@ import HeatMap from './HeatMap';
 import leetcode from './images/leetcode.svg'
 import hackerrank from './images/hackerrank.svg'
 import github from './images/github.svg'
+import userIcon from './images/user-icon-svgrepo-com (1).svg'
 import {
   CitySelect,
   CountrySelect,
   StateSelect,
 } from "react-country-state-city";
 import "react-country-state-city/dist/react-country-state-city.css";
+
 
 
 
@@ -54,6 +56,7 @@ const ProfilePage =  () => {
 
   const [isAddProfileDetailsOpen, setIsAddProfileDetailsOpen] = useState(false);
 
+  const [loading,setLoading] = useState(false);
   const [userdata, setUserdata] = useState({
     name: '',
     tagline: '',
@@ -112,6 +115,8 @@ const ProfilePage =  () => {
   // Save updated about section
   const handleSaveAbout = async () => {
     setIsEditingAbout(false);
+    setLoading(true);
+    try{
     // console.log("aboutText : ", process.env.REACT_APP_saveabout_api);
     const updateUser = await fetch(process.env.REACT_APP_saveabout_api, {
       method: "POST",
@@ -123,12 +128,29 @@ const ProfilePage =  () => {
         "about": aboutText
       })
     });
+    
     const data = await updateUser.json();
+    setLoading(false);
+    
     // console.log("data : ", data);
     window.location.reload(); // Reload the page to clear state and redirect to login
+    }catch(error){
+      setLoading(false);
+      const messageContainer = document.createElement('div');
+        messageContainer.className = 'popup-message';
+
+        messageContainer.textContent = 'Error in Saving About Section';
+        
+        document.body.appendChild(messageContainer);
+        setTimeout(() => {
+          document.body.removeChild(messageContainer);
+        }, 3000);
+    }
   };
 
   const handleUpdateDetails = async () => {
+    setLoading(true);
+
     try {
       const response = await fetch(process.env.REACT_APP_addskill_api, {
         method: "POST",
@@ -141,17 +163,23 @@ const ProfilePage =  () => {
       
       if (!response.ok) throw new Error('Failed to update profile details');
       window.location.reload();
+      setLoading(false);
     } catch (error) {
-      console.error(error);
+      setLoading(false);
+      // console.error(error);
     }
   };
 
   // Add a new skill
   const handleAddSkill = async () => {
     const newSkill = prompt('Enter new skill:');
+    
     if (newSkill) {
+      setLoading(true);
+
       const updatedSkills = [...skills, newSkill];
       setSkills(updatedSkills);
+      try{
       const updateUser = await fetch(process.env.REACT_APP_addskill_api, {
         method: process.env.REACT_APP_addskill_method,
         credentials: 'include',
@@ -164,17 +192,42 @@ const ProfilePage =  () => {
       });
       const data = await updateUser.json();
       // console.log("data : ", data);
+      setLoading(false);
       window.location.reload(); // Reload the page to clear state and redirect to login
+    }catch(error){
+      setLoading(false);
+      const messageContainer = document.createElement('div');
+        messageContainer.className = 'popup-message';
+
+        messageContainer.textContent = 'Error in Adding Skill';
+        
+        document.body.appendChild(messageContainer);
+        setTimeout(() => {
+          document.body.removeChild(messageContainer);
+        }, 3000);
+    }
+    setLoading(false);
     }
   };
 
   // Add a new project
   const handleAddProject = async () => {
+    setLoading(true);
     if (!newProject.title || !newProject.description) {
-      alert("Please enter title and description for the project");
+      const messageContainer = document.createElement('div');
+        messageContainer.className = 'popup-message';
+
+        messageContainer.textContent = ("Please enter title and description for the project");
+        
+        document.body.appendChild(messageContainer);
+        setTimeout(() => {
+          document.body.removeChild(messageContainer);
+        }, 3000);
+        setLoading(false);
       return;
     }
     // Send new project data to the server (optional)
+    try{
     const updateUser = await fetch(process.env.REACT_APP_addproject_api, {
       method: process.env.REACT_APP_addproject_method,
       credentials: 'include',
@@ -189,11 +242,27 @@ const ProfilePage =  () => {
     // console.log("data : ", data);
     setIsAddProjectModalOpen(false);
     window.location.reload(); // Reload the page to clear state and redirect to login
+    setLoading(false);  
+  }catch(error){
+      setLoading(false);
+      const messageContainer = document.createElement('div');
+        messageContainer.className = 'popup-message';
+
+        messageContainer.textContent = 'Error in Adding Project';
+        
+        document.body.appendChild(messageContainer);
+        setTimeout(() => {
+          document.body.removeChild(messageContainer);
+        }, 3000);
+    }
   };
 
   // Add a new experience
   const handleAddExperience = async () => {
+    setLoading(true);
+
     // Send new experience data to the server (optional)
+    try{
     const updateUser = await fetch(process.env.REACT_APP_addexperience_api , {
       method: process.env.REACT_APP_addexperience_method,
       credentials: 'include',
@@ -205,12 +274,28 @@ const ProfilePage =  () => {
       })
     });
     const data = await updateUser.json();
+    setLoading(false);
     // console.log("data : ", data);
     setIsAddExperienceModalOpen(false);
     window.location.reload(); // Reload the page to clear state and redirect to login
+    }catch(error){
+      setLoading(false);
+      const messageContainer = document.createElement('div');
+        messageContainer.className = 'popup-message';
+
+        messageContainer.textContent = 'Error in Adding Experience';
+        
+        document.body.appendChild(messageContainer);
+        setTimeout(() => {
+          document.body.removeChild(messageContainer);
+        }, 3000);
+    }
   };
 
   const handleAddEducation = async () => {
+    setLoading(true);
+
+    try{
     // Send new experience data to the server (optional)
     const updateUser = await fetch(process.env.REACT_APP_addexperience_api , {
       method: process.env.REACT_APP_addexperience_method,
@@ -225,7 +310,20 @@ const ProfilePage =  () => {
     const data = await updateUser.json();
     // console.log("data : ", data);
     setIsShowMoreEducationOpen(false);
+    setLoading(false);
     window.location.reload(); // Reload the page to clear state and redirect to login
+    }catch(error){
+      setLoading(false);
+      const messageContainer = document.createElement('div');
+        messageContainer.className = 'popup-message';
+
+        messageContainer.textContent = 'Error in Adding Education';
+        
+        document.body.appendChild(messageContainer);
+        setTimeout(() => {
+          document.body.removeChild(messageContainer);
+        }, 3000);
+    }
   };
 
 
@@ -252,26 +350,43 @@ const ProfilePage =  () => {
   
 
   // If no user data is available yet
-  if (!userData) return <p>Loading...</p>;
+  if (!userData){ return (<div className="buffer">
+  <div className="loading-container">
+    <div className="loading-spinner"></div>
+  </div>
+</div>)
+  }
 
   return (
     
     <div className="container">
       {/* Profile Header */}
+      {loading&&<div className="buffer">
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+      </div>
+    </div>}
       <div className="profile-header">
           <div className="profile-left">
+
+          <div id="i400">
           <img
 
-            src={userData.profilepic || dummyIcon}
+            src={userIcon}
             alt="Profile Picture"
             className="profile-picture"
           />
-          <img onClick={() => setIsAddProfileDetailsOpen(true)} className='editbtn' style={{height:"10px",margin:"10px"}} src={edit} alt="edit" />
-          <h2 style={{fontFamily:"Poppins"}} id="pro-name">{userData.name}</h2>
-          <p style={{fontFamily:"Poppins"}}>{userData.tagline}</p>
-          <p className="location">
+          </div>
+          <div id="i402">
+          <img onClick={() => setIsAddProfileDetailsOpen(true)} className='editbtn' style={{height:"10px"}} src={edit} alt="edit" />
+
+          </div>
+          <h2 style={{fontFamily:"Poppins",fontWeight:"600"}} id="pro-name">{userData.name}</h2>
+          <p style={{fontFamily:"Poppins",fontSize:"14px"}}>{userData.tagline}</p>
+          <p style={{fontSize:"14px"}} className="location">
             {userData.city}, {userData.state}, {userData.country}
           </p>
+
           </div>
 
 
@@ -298,11 +413,11 @@ const ProfilePage =  () => {
       <div className="complete">
         <div className="about">
           {/* About Section */}
-          <div className="about1">
-          <div className="about-section">
+          <div className="about1" id="i302">
+          <div  className="about-section">
             <div className="about-section-a">
               <div className='simply'>
-                <h3>About</h3>
+                <h3 >About</h3>
                 {isEditingAbout ? (
                   <img onClick={handleSaveAbout} className='editbtn' src={saveIcon}></img>
                 ) : (
@@ -310,13 +425,16 @@ const ProfilePage =  () => {
                 )}
               </div>
               {isEditingAbout ? (
+              
                 <textarea
+                  id="i303"
                   value={aboutText}
                   onChange={(e) => setAboutText(e.target.value)}
                   className="about-text"
                 />
+                
               ) : (
-                <p>{userData.about}</p>
+                <p id="405" style={{fontWeight:"400",fontSize:"15px"}}>{userData.about}</p>
               )}
             </div>
           </div>
@@ -338,19 +456,24 @@ const ProfilePage =  () => {
         </div>
 
         {/* Experience Section */}
-        <h3 className="exp-h3">Experiences</h3>
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+</style>
+        <h3 style={{fontWeight:"700"}} className="exp-h3">Experiences</h3>
         <div className="experience-section">
           {(userData.experiences || []).slice(0, visibleExperiencesCount).map((experience, index) => (
             <div key={index} className="experience-item">
               <div className="experience-item-a">
                 <img src={(experience.company === 'Amazon')?Amazon:
                   (experience.company === 'Google')?Google:'' || experience.media[0]} alt={experience.company} className="company-logo" />
-                <p>{experience.company}</p>
+                <p id="i401">{experience.company}</p>
               </div>
               <div id="exp1">
-                <h4 id="hi10" className="title">{experience.title}</h4>
-                <p  id="hi11">{new Date(experience.startDate).toLocaleDateString()} - {experience.endDate ? new Date(experience.endDate).toLocaleDateString() : 'Present'}</p>
-                <p className="description">{experience.description}</p>
+                <div > 
+                <h4 id="hi10" className="title" >{experience.title}</h4>
+                <p  id="hi11" style={{fontWeight:"500"}} >{new Date(experience.startDate).toLocaleDateString()} - {experience.endDate ? new Date(experience.endDate).toLocaleDateString() : 'Present'}</p>
+                <p id="hi510" className="description" style={{marginTop:"20px",fontWeight:"400"}}>{experience.description}</p>
+                  </div>
               </div>
             </div>
           ))}
@@ -361,13 +484,15 @@ const ProfilePage =  () => {
         </div>
 
         {/* Projects Section */}
-        <h3 className="exp-h3">Projects</h3>
+        <h3 style={{marginTop:"100px"}} className="exp-h3">Projects</h3>
         <div className="pro">
           <div className="projects-section">
             {(userData.projects || []).slice(0, visibleProjectsCount).map((project, index) => (
               <div key={index} className="project-item">
-                <h4 className="project-item-t">{project.title}</h4>
-                <p className="project-item-s">{project.description}</p>
+                <div style={{width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <h4 className="project-item-t" style={{fontSize:"17px"}}>{project.title}</h4>
+                </div>
+                <p className="project-item-s" style={{fontWeight:"500"}}>{project.description}</p>
                 <div className='project-link-holder'>
                   {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">View Project</a>}
                   <img className='editbtn' src={linkIcon}></img>
@@ -380,26 +505,34 @@ const ProfilePage =  () => {
           </div>
           <a href="#" className="add-more-projects" onClick={() => setIsAddProjectModalOpen(true)}>Add Project</a>
         </div>
-        <h3 className="exp-h3">Education</h3>
+        <h3 style={{marginTop:"100px"}} className="exp-h3">Education</h3>
         <div className="experience-section">
           {(userData.education || []).slice(0, visibleExperiencesCount).map((experience, index) => (
             <div key={index} className="experience-item">
               <div className="experience-item-a">
                 <img src={(experience.institution === 'Amazon')?Amazon:
                   (experience.institution !== 'Amazon')?Google:'' || experience.media[0]} alt={experience.institution} className="company-logo" />
-                <p>{experience.institution}</p>
+                <p id="i401" >{experience.institution}</p>
               </div>
               <div id="exp1">
+                <div  >
+                <h4 id="hi" className="title">{experience.institution}</h4>
+
                 <h4 id="hi10" className="title">{experience.title}</h4>
                 <p  id="hi11">{new Date(experience.startDate).toLocaleDateString()} - {experience.endDate ? new Date(experience.endDate).toLocaleDateString() : 'Present'}</p>
-                <p className="description">{experience.description}</p>
+                <p id="hi510"  className="description" style={{fontWeight:"500"}}>{experience.description}</p>
+                
+                </div>
+                
               </div>
+              
+
             </div>
           ))}
           {(userData.education || []).length > 5 && visibleExperiencesCount < (userData.education || []).length && (
             <a href="#" className="show-more" onClick={handleShowMoreEducation}>Show More</a>
           )}
-          <a href="#" className="add-more-projects" onClick={() => setIsAddEducationModalOpen(true)}>Add Experience</a>
+          <a href="#" className="add-more-projects" onClick={() => setIsAddEducationModalOpen(true)}>Add Education</a>
         </div>
 
       </div>
@@ -549,8 +682,8 @@ const ProfilePage =  () => {
           <input
             
             placeholder="Institution or College or School"
-            value={newEducation.company}
-            onChange={(e) => setNewEducation({ ...newEducation, company: e.target.value })}
+            value={newEducation.institution}
+            onChange={(e) => setNewEducation({ ...newEducation, institution: e.target.value })}
             required
           />
           <div>

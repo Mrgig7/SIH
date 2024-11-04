@@ -64,7 +64,7 @@ function JobBoard() {
 
   return (
     <div id="i165" className="main">
-      <div className="sidebar">
+      <div id="i258" className="sidebar">
           <div id="i163">
             <div id="i168"><Link id="i164" to="/organization/createjob" >Create Job</Link></div>
             <div id="i168"><Link id="i164"  to="/organization/postedjobs" >Posted Jobs</Link></div>
@@ -72,21 +72,23 @@ function JobBoard() {
           </div>
         </div>
       <div  className="job-board">
-        <div className="posted-jobs-container">
+        <div id="i256"  className="posted-jobs-container">
           <div className="posted-jobs">
             {currentJobs.length > 0 ? currentJobs.map((job) => (
               <div key={job._id} className="job-card">
                 <div className="title">
-                  <img src={job.img || google} alt={job.title} className='logo'/>
+                  <img src={job.img || google} alt={job.title} />
                   <h3>{job.title}</h3>
                 </div>
                 <div className="bodies">
-                  <div className="texts">
-                    <p>{job.city}</p>
-                    <p>{job.state}</p>
+                  <div id="i412" className="texts">
+                    <p>{job.city}, {job.state},</p>
                     <p>{job.country}</p>
-                    <p><b>{job.workMode}</b> - {job.experienceLevel}</p>
-                    <p><b>Stipend:</b> {job.stipend}</p>
+                    
+                  </div>
+                  <div id="i412">
+                  <p><b>{job.workMode}</b> - {job.experienceLevel}</p>
+                  <p><b>Stipend:</b> {job.stipend}</p>
                   </div>
               
                 </div>

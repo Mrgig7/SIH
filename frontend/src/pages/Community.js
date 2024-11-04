@@ -57,8 +57,8 @@ const Posts = () => {
               <div className="post-card" key={post._id}>
                 
                 <div className="post-content">
-                  <h2>{post.title}</h2>
-                  <p>{post.description}</p>
+                  <h2 id="i288">{post.title}</h2>
+                  <p id="i289"> {post.description}</p>
                   <div className="post-info">
                     <span>Date: 12/09/2024</span> {/* You can replace with real date */}
                     <div className="post-actions">
@@ -74,7 +74,11 @@ const Posts = () => {
               </div>
             ))
           ) : (
-            <p>No posts available</p>
+            <div className="buffer">
+              <div className="loading-container">
+                <div className="loading-spinner"></div>
+              </div>
+            </div>
           )}
         </div>
       </div>

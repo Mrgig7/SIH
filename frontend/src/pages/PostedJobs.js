@@ -14,6 +14,18 @@ function JobBoard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const jobsPerPage = 6;
+  
+  const GenerateErrorPopup = () =>{
+    const messageContainer = document.createElement('div');
+        messageContainer.className = 'popup-message';
+
+        messageContainer.textContent = 'Error in Getting data, try after some time';
+        
+        document.body.appendChild(messageContainer);
+        setTimeout(() => {
+          document.body.removeChild(messageContainer);
+        }, 3000);
+  }
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -81,17 +93,20 @@ function JobBoard() {
     setCurrentPage(pageNumber);
   };
 
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
+ 
 
   if (error) {
-    return <div className="error">Error: {error}</div>;
+    GenerateErrorPopup();
   }
 
   return (
     <div id="i166" className="main">
-      <div className="sidebar">
+      {loading &&<div className="buffer">
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+      </div>
+    </div> }
+      <div id="i258" className="sidebar">
           <div id="i163">
             <div id="i168"><Link id="i164" to="/organization/createjob" >Create Job</Link></div>
             <div id="i168"><Link id="i164"  to="/organization/postedjobs" className="high">Posted Jobs</Link></div>
@@ -99,24 +114,23 @@ function JobBoard() {
           </div>
         </div>
       <div className="job-board">
-        <div className="posted-jobs-container">
+        <div id="i256" className="posted-jobs-container">
           <div className="posted-jobs">
             {currentJobs.length > 0 ? currentJobs.map((job) => (
               <div key={job._id} className="job-card">
                 <div className="title">
-                  <img src={job.img || google} alt={job.title} className='logo'/>
+                  <img src={job.img || google} alt={job.title}/>
                   <h3>{job.title}</h3>
                 </div>
                 <div className="bodies">
-                  <div className="texts">
-                    <p>{job.city}</p>
-                    <p>{job.state}</p>
+                  <div id="i412" className="texts">
+                    <p>{job.city}, {job.state}, </p>
                     <p>{job.country}</p>
-                    <p><b>{job.workMode}</b> - {job.experienceLevel}</p>
+                    <p><b>{job.workMode}</b> -<b> {job.experienceLevel}</b></p>
                     <p><b>Stipend:</b> {job.stipend}</p>
                   </div>
                   <div className="job-actions">
-                    <button onClick={()=>{navigator("../applicants/"+job._id)}} className="edit-btn">View Applicants</button>
+                    <button onClick={()=>{navigator("../applicants/"+job._id)}} className="i411">View Applicants</button>
                     <button 
                       className="close-btn" 
                       onClick={() => handleCloseJob(job._id)}

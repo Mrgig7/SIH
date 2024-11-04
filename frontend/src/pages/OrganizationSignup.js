@@ -8,7 +8,8 @@ import {
   StateSelect,
 } from "react-country-state-city";
 import "react-country-state-city/dist/react-country-state-city.css";
-
+import hidden from './images/hidden.png';
+import eye from './images/eye.png';
 
 
 const JobSeekerSignup = () => {
@@ -155,6 +156,13 @@ const JobSeekerSignup = () => {
 
   return (
     <div className="signup-container">
+      {
+        isBuffereing && <div className="buffer">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+        </div>
+      </div>
+      }
       <h1 className="form-title">Organization or Job Provider</h1>
       <div id="i145" className="signup-form">
         <h2 id="i146" className="form-subtitle">Signup</h2>
@@ -188,7 +196,7 @@ const JobSeekerSignup = () => {
               onClick={togglePasswordVisibility}
               className="password-toggle"
             >
-              {showPassword ? "🙈" : "👁️"}
+              {showPassword ?<img src={hidden} alt='👁️' style={{width:'20px',marginLeft:"-30px"}}/> : <img src={eye} alt='👁️' style={{width:'20px',marginLeft:"-30px"}}/>}
             </span>
           </div>
           
@@ -206,7 +214,7 @@ const JobSeekerSignup = () => {
               onClick={toggleConfirmPasswordVisibility}
               className="password-toggle"
             >
-              {showConfirmPassword ? "🙈" : "👁️"}
+              {showConfirmPassword ? <img src={hidden} alt='👁️' style={{width:'20px',marginLeft:"-30px"}}/> : <img src={eye} alt='👁️' style={{width:'20px',marginLeft:"-30px"}}/>}
             </span>
           </div>
           

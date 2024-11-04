@@ -47,6 +47,15 @@ function JobBoard() {
             });
           }
         } catch (error) {
+          const messageContainer = document.createElement('div');
+        messageContainer.className = 'popup-message';
+
+        messageContainer.textContent = ('Error fetching job. Please try again later.');
+        
+        document.body.appendChild(messageContainer);
+        setTimeout(() => {
+          document.body.removeChild(messageContainer);
+        }, 3000);
           console.error('Error fetching job:', error);
         }
       }
@@ -66,8 +75,9 @@ function JobBoard() {
   };
 
   return (
-    <div className="job-board">
-      <div className="posted-jobs-container">
+    
+    <div  className="job-board">
+      <div id="i256" className="posted-jobs-container">
         <div className="posted-jobs">
           {currentJobs.map((job) => (
             <div key={job._id} className="job-card">
@@ -76,7 +86,7 @@ function JobBoard() {
                 <h3>{job.title}</h3>
               </div>
               <div className="bodies">
-                <div className="texts">
+                <div id="i412" className="texts">
                   <p>{`${job.city}, ${job.state}, ${job.country}`}</p>
                   <p><b>{job.workMode}</b> - {job.experienceLevel}</p>
                   <p><b>Stipend:</b> {job.stipend}</p>

@@ -2,6 +2,8 @@ import { Link, useParams } from 'react-router-dom';
 import './PostedJobs.css'; // You can create this file for styling the posted jobs
 import { useState, useEffect } from 'react';
 import "./Applicants.css";
+import tick from './images/tick.svg';
+import times from './images/times.svg';
 
 const Applicants = () => {
     const { id } = useParams(); // Extract the job ID from params
@@ -77,7 +79,7 @@ const Applicants = () => {
 
     return (
         <div className="job-page-container">
-            <div className="sidebar">
+            <div id="i258" className="sidebar">
           <div id="i163">
             <div id="i168"><Link id="i164" to="/organization/createjob" >Create Job</Link></div>
             <div id="i168"><Link id="i164"  to="/organization/postedjobs" className="high">Posted Jobs</Link></div>
@@ -88,7 +90,11 @@ const Applicants = () => {
                 <div className="main-content">
                     <Header jobDetails={jobDetails} />
                     {loading ? (
-                        <p>Loading applicants...</p> // Show loading message
+                        <div className="buffer">
+                        <div className="loading-container">
+                          <div className="loading-spinner"></div>
+                        </div>
+                      </div> // Show loading message
                     ) : (
                         applicantsData.map((applicant, index) => (
                             
@@ -103,7 +109,7 @@ const Applicants = () => {
 
 const Header = ({ jobDetails }) => (
     <div className="header">
-        <img src="logo.png" alt="Logo" className="logo" />
+        {/* <img src="logo.png" alt="Logo" className="logo" /> */}
         <h1 id="i191">{jobDetails?.title} Applications</h1>
         <p>{jobDetails?.city}, {jobDetails?.state}<br></br> {jobDetails?.country}</p>
     </div>
@@ -126,9 +132,9 @@ const ApplicantCard = ({ index,applicant ,jobDetails}) => {
             <div id="i192" className="applicant-header">
                 <div id="i193">
                     <h2 id="i191">{applicant.data.name}</h2>
-                    <p>{applicant.data.tagline}</p>
-                    <p>{applicant.data.city}, {applicant.data.state}</p>
-                    <p>{applicant.data.country}</p>
+                    <p style={{fontWeight:"500"}}>{applicant.data.tagline}</p>
+                    <p style={{fontWeight:"500"}} >{applicant.data.city}, {applicant.data.state}</p>
+                    <p style={{fontWeight:"500"}}>{applicant.data.country}</p>
                     
                 </div>
                 <button className="view-btn" onClick={toggleDetails}>
@@ -141,12 +147,18 @@ const ApplicantCard = ({ index,applicant ,jobDetails}) => {
                     <div className="hided">
                         <div id="i194" className="skills-section">
                             <h3>Skills</h3>
-                            <div>
+                            <div >
                                 {jobDetails.applicants[index].skills.map(({skill,match},idx) => (
+                                    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",paddingRight:"90px"}}>
                                     <div key={idx}>
-                                        {skill} {match ? '✔️' : '❌'}
+                                        <p style={{fontWeight:"500"}}>{skill}</p>
+                                    </div>
+                                    <div key={idx}>
+                                    {match ? <img src={tick} alt="✔️" style={{height:"20px"}} /> :<img src={times} alt='❌' style={{height:"20px"}} />  }
+                                    </div>
                                     </div>
                                 ))}
+                                
                             </div>
                         </div>
 
@@ -222,10 +234,10 @@ const ApplicantCard = ({ index,applicant ,jobDetails}) => {
 
                    
                     <div id="i195" className="extra-questions">
-                        <h3><b>Extra Questions</b></h3>
+                        <h3 style={{fontSize:"24px"}}><b>Extra Questions</b></h3>
                         {jobDetails.applicants[index].extra_questions.map(({ question, answer }, idx) => (
                             <div style={{margin:"10px"}} key={idx}>
-                                <p ><strong>Q:</strong> {question}</p>
+                                <p ><strong>Q:{idx+1}</strong> {question}</p>
                                 <p id="i196"><strong>Answer:</strong> {answer}</p>
                             </div>
                         ))}
